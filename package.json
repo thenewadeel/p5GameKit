@@ -1,0 +1,26 @@
+{
+  "name": "p5gamekit",
+  "version": "1.0.0",
+  "description": "p5 based game",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thenewadeel/p5GameKit.git"
+  },
+  "keywords": [
+    "p5",
+    "game"
+  ],
+  "author": "ad",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/thenewadeel/p5GameKit/issues"
+  },
+  "homepage": "https://github.com/thenewadeel/p5GameKit#readme",
+  "devDependencies": {
+    "@types/p5": "^0.9.0"
+  }
+}

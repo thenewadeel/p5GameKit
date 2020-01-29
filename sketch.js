@@ -19,7 +19,7 @@ function setup() {
     rocket= new Rocket();
 }
 function draw() {
-  background(rocket.heatVal() , 127, 25);
+  background(rocket.engineTemp() , 127, 25);
   rocket.show();
   rocket.tick();
 }

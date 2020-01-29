@@ -5,7 +5,7 @@
 
 let canvas, midX, midY;
 let rocket;
-
+let apple;
 
 
 function preload() {}
@@ -17,9 +17,12 @@ function setup() {
     midY = height * 0.5;
     background(125);
     rocket= new Rocket();
+    apple=new Apple();
 }
 function draw() {
-  background(rocket.engineTemp() , 127, 25);
+  background(107 , 100, 165);
   rocket.show();
+
   rocket.tick();
+  apple.show();
 }

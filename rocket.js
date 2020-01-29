@@ -1,10 +1,38 @@
 /// <reference path="./node_modules/@types/p5/global.d.ts"/>
 
 let ROTATION_ANGLE = 0.05;
-let MAX_VEL = 5;
-let GRAVITY_MAGNITUDE = 0.1;
+let MAX_VEL = 10;
+let GRAVITY_MAGNITUDE = 0.01;
+class FruitEater {
+  constructor(tongueLength) {
+    this.score = 0;
+    // this.active = true;
+    this.tongueLength = tongueLength ? tongueLength : 20;
+  }
+  setTarget(targetVector) {
+    this.targetVector = targetVector;
+  }
+  getDistance(ownPosition) {
+    return dist(
+      this.targetVector.x,
+      this.targetVector.y,
+      ownPosition.x,
+      ownPosition.y
+    );
+  }
+  checkEat(targetVector, ownPosition) {
+    this.setTarget(targetVector);
+    if (this.getDistance(ownPosition) <= this.tongueLength) {
+      this.score++;
+      return true;
+    } else {
+      return false;
+    }
+  }
+}
 class Rocket {
   constructor() {
+    this.eater = new FruitEater();
     rectMode(CENTER);
     this.mover = new Mover(
       random(width * 0.2, width * 0.8),
@@ -13,6 +41,10 @@ class Rocket {
       MAX_VEL,
       ROTATION_ANGLE
     );
+  }
+  setTarget(apple) {
+    this.target=apple;
+    this.targetVector = apple.pos;
   }
   passInput() {
     if (keyIsDown(LEFT_ARROW)) {
@@ -41,14 +73,22 @@ class Rocket {
   }
   tick() {
     this.passInput();
+    if (this.target&&this.target.pos) {
+      // console.log("finding");
+      if (this.eater.checkEat(this.target.pos, this.mover.pos)) {
+        // console.log("found");
+        this.target.getHit();
+        this.score++;
+      }
+    }
     this.checkEdges();
   }
   show() {
     push();
     translate(this.mover.pos.x, this.mover.pos.y);
     rotate(this.mover.heading());
-    stroke(127+this.engineTemp()/2,255,0);
-    fill(this.engineTemp(),0,0);
+    stroke(127 + this.engineTemp() / 2, 255, 0);
+    fill(this.engineTemp(), 0, 0);
     rect(0, 0, 90, 10);
     // let tt=this.vel.copy().normalize().rotate(this.vel.heading())
     // line( 25*tt.x, 25*tt.y,0,0)
@@ -59,6 +99,7 @@ class Rocket {
     text("Velocity: " + this.mover.speed(), 0, 0);
     text("Heading: " + Math.floor(this.mover.heading()), 0, 20);
     text("Thruster: " + this.mover.thrusterState, 0, 40);
+    text("Score: " + this.eater.score, 0, 80);
     text(
       "Pos: " +
         Math.floor(this.mover.pos.x) +

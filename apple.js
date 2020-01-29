@@ -5,6 +5,7 @@ class Apple {
     // rectMode(CENTER);
     // this.gravity = createVector(0, GRAVITY_MAGNITUDE);
     // this.vel = createVector(0, 0.23);
+    this.strength=10;
     this.pos = createVector(
       random(width*0.1 , width*0.9),
       random(height *0.1, height*0.9)
@@ -17,17 +18,20 @@ class Apple {
     // this.thrusterForceDefault = createVector(0, -0.25);
     // this.thrusterForce = this.thrusterForceDefault;
   }
-  check() {
-    // if (this.pos.x < 0) {
-    //   this.pos.x = width;
-    // } else if (this.pos.x > width) {
-    //   this.pos.x = 0;
-    // }
-    // if (this.pos.y < 0) {
-    //   this.pos.y = height;
-    // } else if (this.pos.y > height) {
-    //   this.pos.y = 0;
-    // }
+  getHit(strength) {
+    if(this.strength>0){
+
+      let life=this.strength-(strength?strength:1);
+      console.log('life: ',life);
+      if(life>1){
+        this.strength=life;
+        // console.log('ouch');
+      }else if(life<=1){
+        this.strength=0;
+        this.color='#FFFFFF'
+        console.log('inna lillah apple')
+      }
+    }
   }
   tick() {
     // this.checkInputAndMove();
@@ -40,6 +44,7 @@ class Apple {
     // rotate(this.vel.heading());
     // rect(0, 0, 60, 10);
     stroke(this.color);
+    fill(this.color)
     circle(0, 0, 40);
     // let tt=this.vel.copy().normalize().rotate(this.vel.heading())
     // line( 25*tt.x, 25*tt.y,0,0)

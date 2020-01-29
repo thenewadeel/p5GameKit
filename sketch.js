@@ -18,6 +18,7 @@ function setup() {
     background(125);
     rocket= new Rocket();
     apple=new Apple();
+    rocket.setTarget(apple);
 }
 function draw() {
   background(107 , 100, 165);

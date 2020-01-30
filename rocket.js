@@ -1,7 +1,7 @@
 /// <reference path="./node_modules/@types/p5/global.d.ts"/>
 
 let ROTATION_ANGLE = 0.05;
-let MAX_VEL = 10;
+let MAX_VEL = 5;
 let GRAVITY_MAGNITUDE = 0.01;
 class FruitEater {
   constructor(tongueLength) {
@@ -87,9 +87,14 @@ class Rocket {
     push();
     translate(this.mover.pos.x, this.mover.pos.y);
     rotate(this.mover.heading());
-    stroke(127 + this.engineTemp() / 2, 255, 0);
+    fill(120);
+    // fill(0,0,this.engineTemp());
+    stroke(0,0,this.engineTemp());
+    rect(-15,0,12,12);
+    rect(-25,0,12,12);
     fill(this.engineTemp(), 0, 0);
-    rect(0, 0, 90, 10);
+    stroke(127 + this.engineTemp() / 2, 255, 0);
+    circle(0, 0, 25);
     // let tt=this.vel.copy().normalize().rotate(this.vel.heading())
     // line( 25*tt.x, 25*tt.y,0,0)
     pop();
